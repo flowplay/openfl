@@ -102,9 +102,9 @@ class Stage3D extends EventDispatcher {
 	public function requestContext3D (context3DRenderMode:Context3DRenderMode = AUTO, profile:Context3DProfile = BASELINE):Void {
 		
 		if (context3D != null) {
-
-            __contextRequested = true;
-            Timer.delay (__dispatchCreate, 1);
+			
+			__contextRequested = true;
+			Timer.delay (__dispatchCreate, 1);
 			
 		} else if (!__contextRequested) {
 			
