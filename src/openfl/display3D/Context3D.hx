@@ -504,7 +504,7 @@ import openfl.utils.ByteArray;
 		
 		setRenderToBackBuffer ();
 		
-		if (__stage3D != null) {
+		if (__stage3D != null && __backBufferTexture != null) {
 			
 			if (!__cleared) {
 				
@@ -944,6 +944,14 @@ import openfl.utils.ByteArray;
 			__contextState.__currentGLTextureCubeMap = texture;
 			
 		// }
+		
+	}
+	
+	
+	@:noCompletion private function __dispose ():Void {
+		
+		driverInfo += " (Disposed)";
+		// gl = null;
 		
 	}
 	

@@ -46,6 +46,7 @@ class Stage3D extends EventDispatcher {
 	public var x (get, set):Float;
 	public var y (get, set):Float;
 	
+	@:noCompletion private var __contextLost:Bool;
 	@:noCompletion private var __contextRequested:Bool;
 	@:noCompletion private var __height:Int;
 	@:noCompletion private var __indexBuffer:IndexBuffer3D;
@@ -100,6 +101,13 @@ class Stage3D extends EventDispatcher {
 	
 	
 	public function requestContext3D (context3DRenderMode:Context3DRenderMode = AUTO, profile:Context3DProfile = BASELINE):Void {
+		
+		if (__contextLost) {
+			
+			__contextRequested = true;
+			return;
+			
+		}
 		
 		if (context3D != null) {
 			
@@ -231,6 +239,24 @@ class Stage3D extends EventDispatcher {
 	}
 	
 	
+	@:noCompletion private function __lostContext ():Void {
+		
+		__contextLost = true;
+		
+		if (context3D != null) {
+			
+			__indexBuffer = null;
+			__vertexBuffer = null;
+			context3D.__dispose ();
+			context3D = null;
+			
+			__contextRequested = true;
+			
+		}
+		
+	}
+	
+	
 	@:noCompletion private function __resize (width:Int, height:Int):Void {
 		
 		if (width != __width || height != __height) {
@@ -259,6 +285,14 @@ class Stage3D extends EventDispatcher {
 			__height = height;
 			
 		}
+		
+	}
+	
+	
+	@:noCompletion private function __restoreContext ():Void {
+		
+		__contextLost = false;
+		__createContext ();
 		
 	}
 	
