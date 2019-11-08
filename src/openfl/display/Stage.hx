@@ -1332,6 +1332,11 @@ class Stage extends DisplayObjectContainer implements IModule {
 		focus = null;
 		__cacheFocus = currentFocus;
 		
+		MouseEvent.__altKey = false;
+		MouseEvent.__commandKey = false;
+		MouseEvent.__ctrlKey = false;
+		MouseEvent.__shiftKey = false;
+		
 	}
 	
 	
