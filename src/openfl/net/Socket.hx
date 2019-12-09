@@ -164,8 +164,8 @@ class Socket extends EventDispatcher implements IDataInput implements IDataOutpu
 		
 		try {
 			
-			__socket.setBlocking (false);
 			__socket.connect (h, port);
+			__socket.setBlocking (false);
 			__socket.setFastSend (true);
 			
 		} catch (e:Dynamic) {}
